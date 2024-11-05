@@ -15,7 +15,12 @@ export default function MapChart(props) {
                 <Geographies geography={geoUrl}>
                     {({ geographies }) =>
                         geographies
-                            .filter((geo) => geo.properties.name !== "Antarctica")
+                            .filter(
+                                (geo) =>
+                                    geo.properties.name !== "Antarctica" &&
+                                    geo.properties.name !== "Fr. S. Antarctic Lands" &&
+                                    geo.properties.name !== "Falkland Is."
+                            )
                             .map((geo) => (
                                 <Geography
                                     data-tooltip-id="country-name"
@@ -24,7 +29,8 @@ export default function MapChart(props) {
                                     geography={geo}
                                     fill={
                                         countries.includes(geo.properties.name)
-                                            ? "#1e40af"
+                                            ? "#22c55e"
+											/* Set color depending on theme */
                                             : "black"
                                     }
                                     stroke="gray"

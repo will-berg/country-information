@@ -14,8 +14,9 @@ country_name_to_code = json.load(open(country_json))
 
 
 def create_indicator_jsons():
-	# Indicators to use: gdp, gdp per capita, population, life expectancy, fertility rate, gdp (ppp), gdp per capita (ppp), central government debt, inflation consumer prices
-	to_use = ["NY.GDP.MKTP.CD", "NY.GDP.PCAP.CD", "SP.POP.TOTL", "SP.DYN.LE00.IN", "SP.DYN.TFRT.IN", "NY.GDP.MKTP.PP.CD", "NY.GDP.PCAP.PP.CD", "FP.CPI.TOTL.ZG"]
+	# Indicators to use: gdp, gdp per capita, population, life expectancy, fertility rate, gdp (ppp), gdp per capita (ppp), central government debt, inflation consumer prices,
+	# urban population percentage of population, energy imports net, co2 emissions per capita, unemployment rate, gdp growth
+	to_use = ["NY.GDP.MKTP.CD", "NY.GDP.PCAP.CD", "SP.POP.TOTL", "SP.DYN.LE00.IN", "SP.DYN.TFRT.IN", "NY.GDP.MKTP.PP.CD", "NY.GDP.PCAP.PP.CD", "FP.CPI.TOTL.ZG", "SP.URB.TOTL.IN.ZS", "NE.IMP.GNFS.ZS", "EN.ATM.CO2E.PC", "SL.UEM.TOTL.ZS", "NY.GDP.MKTP.KD.ZG"]
 	# Indicator to name dictionary
 	indicator_dict = {
 		"NY.GDP.MKTP.CD": "GDP (nominal)",
@@ -25,12 +26,17 @@ def create_indicator_jsons():
 		"SP.DYN.TFRT.IN": "Fertility rate",
 		"NY.GDP.MKTP.PP.CD": "GDP (PPP)",
 		"NY.GDP.PCAP.PP.CD": "GDP per capita (PPP)",
-		"FP.CPI.TOTL.ZG": "Inflation (consumer prices)"
+		"FP.CPI.TOTL.ZG": "Inflation (consumer prices)",
+		"SP.URB.TOTL.IN.ZS": "Urban population (percentage of total)",
+		"NE.IMP.GNFS.ZS": "Energy imports (percentage of total)",
+		"EN.ATM.CO2E.PC": "CO2 emissions per capita",
+		"SL.UEM.TOTL.ZS": "Unemployment rate",
+		"NY.GDP.MKTP.KD.ZG": "GDP growth"
 	}
 
 	indicators = wb.series.list()
 	for indicator in indicators:
-		if indicator["id"] in to_use:
+		if indicator["id"] in to_use: # and indicator_dict[indicator['id']].replace(' ', '_') + ".csv" not in [file.name for file in data_dir.iterdir()]:
 			indicator_dataframe = wb.data.DataFrame(indicator["id"])
 			# Change column name from "YRXXXX" to "XXXX"
 			indicator_dataframe.columns = [int(col[2:]) for col in indicator_dataframe.columns]

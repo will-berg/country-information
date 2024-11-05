@@ -6,8 +6,6 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function Dashboard() {
-    // Get the relevant data for the countries using defined API calls
-    // Population, GDP, GDP per capita, birth rate, etc.
     const { countries } = useCountryStore();
     const [countryData, setCountryData] = useState([]);
     // Fetch country data from the backend API
@@ -47,7 +45,9 @@ export default function Dashboard() {
     } else {
         return (
             <div>
-                <h1 className="flex justify-center mb-2">Comparing: {countries.map((name) => name + ", ")}</h1>
+                <h1 className="flex justify-center mb-2">
+                    Analyzing: {countries.map((country) => country).join(", ")}
+                </h1>
                 <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
                     {/* Create a multiline chart for each indicator in countryData */}
                     {countryData.map((indicator) => (
@@ -58,6 +58,7 @@ export default function Dashboard() {
                         />
                     ))}
                 </div>
+				{/* Add more charts here */}
                 <div>
                     <Link href="/">
                         <Button variant="secondary" className="my-4">
