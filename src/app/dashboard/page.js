@@ -11,7 +11,7 @@ export default function Dashboard() {
     // Fetch country data from the backend API
     useEffect(() => {
         async function fetchCountryData() {
-            let response = await fetch("http://localhost:3001/indicators", {
+            let response = await fetch("http://localhost:5000/indicators", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
