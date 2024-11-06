@@ -9,11 +9,14 @@ from pathlib import Path
 import json
 
 data_dir = Path("wb_data")
-country_json = data_dir / "country_codes.json"
+country_json = "country_codes.json"
 country_name_to_code = json.load(open(country_json))
 
 
 def create_indicator_jsons():
+	# Create data_dir if it does not exist
+	if not data_dir.exists():
+		data_dir.mkdir()
 	# Indicators to use: gdp, gdp per capita, population, life expectancy, fertility rate, gdp (ppp), gdp per capita (ppp), central government debt, inflation consumer prices,
 	# urban population percentage of population, energy imports net, co2 emissions per capita, unemployment rate, gdp growth
 	to_use = ["NY.GDP.MKTP.CD", "NY.GDP.PCAP.CD", "SP.POP.TOTL", "SP.DYN.LE00.IN", "SP.DYN.TFRT.IN", "NY.GDP.MKTP.PP.CD", "NY.GDP.PCAP.PP.CD", "FP.CPI.TOTL.ZG", "SP.URB.TOTL.IN.ZS", "NE.IMP.GNFS.ZS", "EN.ATM.CO2E.PC", "SL.UEM.TOTL.ZS", "NY.GDP.MKTP.KD.ZG"]
