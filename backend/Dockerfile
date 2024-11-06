@@ -1,5 +1,5 @@
 # Use the official Python image
-FROM python:3
+FROM python
 
 # Set the working directory in the container
 WORKDIR /app/backend
@@ -12,4 +12,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Run the flask app
-CMD ["python", "app.py"]
+CMD python app.py
